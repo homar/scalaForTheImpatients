@@ -1,0 +1,93 @@
+object Chapter3Exc {
+  println("Welcome to the Scala worksheet")       //> Welcome to the Scala worksheet
+ import scala.util.Random
+ import scala.collection.mutable.ArrayBuffer
+ var r = new Random                               //> r  : scala.util.Random = scala.util.Random@4166a779
+ def createArrayOfRandomInt(n: Int, r: Random): Array[Int] ={
+ 	var tmp = for(i <- 0 to n) yield r.nextInt(n)
+ 	val res = new ArrayBuffer[Int](n)
+ 	for(i <- tmp) res+=i
+ 	res.toArray
+ }                                                //> createArrayOfRandomInt: (n: Int, r: scala.util.Random)Array[Int]
+ 
+ createArrayOfRandomInt(10, r)                    //> res0: Array[Int] = Array(9, 0, 6, 6, 3, 7, 4, 3, 8, 6, 7)
+ val tab = Array(1,2,3,4,5)                       //> tab  : Array[Int] = Array(1, 2, 3, 4, 5)
+ for(i <- 0 to tab.length ; j <- i to i+1 if j < tab.length && i % 2 == 0){
+ 	val sw = tab(i)
+ 	tab(i) = tab(j)
+ 	tab(j) = sw
+ }
+ tab                                              //> res1: Array[Int] = Array(2, 1, 4, 3, 5)
+ 
+ val tab2: Array[Int] = Array(1,2,3,4,5,6,7)      //> tab2  : Array[Int] = Array(1, 2, 3, 4, 5, 6, 7)
+
+ (for(i <- 0 until tab2.length)yield{
+ 		if (i == tab2.length - 1 && i % 2 == 0) tab2(i)
+ 		else if(i % 2 == 1) tab2(i - 1)
+ 		else tab2(i + 1)
+ 	}
+ ).toArray                                        //> res2: Array[Int] = Array(2, 1, 4, 3, 6, 5, 7)
+ 	
+ def sortArray(arr: Array[Int]): Array[Int] = {
+ 	val posArr = for(i <- arr if( i >= 0)) yield i
+ 	val negArr = for(i <- arr if i < 0) yield i
+ 	posArr ++ negArr
+ }                                                //> sortArray: (arr: Array[Int])Array[Int]
+ 
+ sortArray(Array(-1,2,3,-4,4,5,-2))               //> res3: Array[Int] = Array(2, 3, 4, 5, -1, -4, -2)
+ 
+ val dou = Array(1.0,3.0,2.0)                     //> dou  : Array[Double] = Array(1.0, 3.0, 2.0)
+ 
+ var sum = 0.0;                                   //> sum  : Double = 0.0
+ for(i <- dou) sum += i
+ 
+ sum/dou.length                                   //> res4: Double = 2.0
+ 
+ dou.sorted.reverse                               //> res5: Array[Double] = Array(3.0, 2.0, 1.0)
+ var dupArr = Array(1,1,2,2,3,3)                  //> dupArr  : Array[Int] = Array(1, 1, 2, 2, 3, 3)
+ dupArr.distinct                                  //> res6: Array[Int] = Array(1, 2, 3)
+ 	
+ 	val timeZones = java.util.TimeZone.getAvailableIDs
+                                                  //> timeZones  : Array[String] = Array(Etc/GMT+12, Etc/GMT+11, Pacific/Midway, 
+                                                  //| Pacific/Niue, Pacific/Pago_Pago, Pacific/Samoa, US/Samoa, America/Adak, Ame
+                                                  //| rica/Atka, Etc/GMT+10, HST, Pacific/Honolulu, Pacific/Johnston, Pacific/Rar
+                                                  //| otonga, Pacific/Tahiti, SystemV/HST10, US/Aleutian, US/Hawaii, Pacific/Marq
+                                                  //| uesas, AST, America/Anchorage, America/Juneau, America/Nome, America/Sitka,
+                                                  //|  America/Yakutat, Etc/GMT+9, Pacific/Gambier, SystemV/YST9, SystemV/YST9YDT
+                                                  //| , US/Alaska, America/Dawson, America/Ensenada, America/Los_Angeles, America
+                                                  //| /Metlakatla, America/Santa_Isabel, America/Tijuana, America/Vancouver, Amer
+                                                  //| ica/Whitehorse, Canada/Pacific, Canada/Yukon, Etc/GMT+8, Mexico/BajaNorte, 
+                                                  //| PST, PST8PDT, Pacific/Pitcairn, SystemV/PST8, SystemV/PST8PDT, US/Pacific, 
+                                                  //| US/Pacific-New, America/Boise, America/Cambridge_Bay, America/Chihuahua, Am
+                                                  //| erica/Creston, America/Dawson_Creek, America/Denver, America/Edmonton, Amer
+                                                  //| ica/Hermosillo, America
+                                                  //| Output exceeds cutoff limit.
+  timeZones.filter(_.contains("America")).map(_.drop(8)).sorted
+                                                  //> res7: Array[String] = Array(Adak, Anchorage, Anguilla, Antigua, Araguaina, 
+                                                  //| Argentina/Buenos_Aires, Argentina/Catamarca, Argentina/ComodRivadavia, Arge
+                                                  //| ntina/Cordoba, Argentina/Jujuy, Argentina/La_Rioja, Argentina/Mendoza, Arge
+                                                  //| ntina/Rio_Gallegos, Argentina/Salta, Argentina/San_Juan, Argentina/San_Luis
+                                                  //| , Argentina/Tucuman, Argentina/Ushuaia, Aruba, Asuncion, Atikokan, Atka, Ba
+                                                  //| hia, Bahia_Banderas, Barbados, Belem, Belize, Blanc-Sablon, Boa_Vista, Bogo
+                                                  //| ta, Boise, Buenos_Aires, Cambridge_Bay, Campo_Grande, Cancun, Caracas, Cata
+                                                  //| marca, Cayenne, Cayman, Chicago, Chihuahua, Coral_Harbour, Cordoba, Costa_R
+                                                  //| ica, Creston, Cuiaba, Curacao, Danmarkshavn, Dawson, Dawson_Creek, Denver, 
+                                                  //| Detroit, Dominica, Edmonton, Eirunepe, El_Salvador, Ensenada, Fort_Wayne, F
+                                                  //| ortaleza, Glace_Bay, Godthab, Goose_Bay, Grand_Turk, Grenada, Guadeloupe, G
+                                                  //| uatemala, Guayaquil, Guyana, Halifax, Havana, Hermosillo, Indiana/Indianapo
+                                                  //| lis, Indiana/Knox, Indi
+                                                  //| Output exceeds cutoff limit.
+  
+  import java.awt.datatransfer._
+  val flavors = SystemFlavorMap.getDefaultFlavorMap().asInstanceOf[SystemFlavorMap]
+                                                  //> flavors  : java.awt.datatransfer.SystemFlavorMap = java.awt.datatransfer.Sy
+                                                  //| stemFlavorMap@7eba168e
+  import scala.collection.mutable.Buffer
+  import scala.collection.JavaConversions.asScalaBuffer
+	val buf : Buffer[String] = flavors.getNativesForFlavor(DataFlavor.imageFlavor)
+                                                  //> buf  : scala.collection.mutable.Buffer[String] = Buffer(PNG, JFIF, DIB, ENH
+                                                  //| METAFILE, METAFILEPICT)
+|
+  
+ 	
+}
